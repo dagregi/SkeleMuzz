@@ -3,34 +3,36 @@
   import "@skeletonlabs/skeleton/styles/all.css";
   import "../app.postcss";
 
-  import { AppShell, AppBar } from "@skeletonlabs/skeleton";
-  import { Drawer, drawerStore } from "@skeletonlabs/skeleton";
+  import {
+    AppBar,
+    AppShell,
+    type DrawerSettings,
+  } from "@skeletonlabs/skeleton";
+  import { drawerStore } from "@skeletonlabs/skeleton";
 
-  import Navigation from "$lib/components/navigation.svelte";
+  import Navigation from "$lib/components/Navigation.svelte";
+  import SideBar from "$lib/components/SideBar.svelte";
 
+  const drawerSettings: DrawerSettings = {
+    id: "sidebar",
+
+    bgDrawer: "bg-surface-800",
+    bgBackdrop: "variant-glass",
+    width: "w-[320px] md:w-[480px]",
+  };
   function drawerOpen(): void {
-    drawerStore.open();
+    drawerStore.open(drawerSettings);
   }
   function drawerClose(): void {
     drawerStore.close();
   }
 </script>
 
-<Drawer>
-  <div class="flex justify-between">
-    <h2 class="p-4">(title)</h2>
-    <button class="lg:hidden btn btn-sm mr-4" on:click={drawerClose}>
-      (icon)
-    </button>
-  </div>
-  <hr />
-  <Navigation />
-</Drawer>
-
-<AppShell slotSidebarLeft="bg-surface-500/5 w-0 md:w-64">
+<SideBar on:click={drawerClose} />
+<AppShell slotSidebarLeft="bg-surface-700/30 w-0 md:w-64">
   <svelte:fragment slot="header">
     <AppBar
-      gridColumns="grid-cols-2"
+      gridColumns="grid-cols-3"
       slotDefault="place-self-center"
       slotTrail="place-content-end"
     >
@@ -46,10 +48,16 @@
         </button>
       </svelte:fragment>
       <h2>(title)</h2>
+      <svelte:fragment slot="trail">
+        <button>(icon)</button>
+      </svelte:fragment>
     </AppBar>
   </svelte:fragment>
   <svelte:fragment slot="sidebarLeft">
-    <div id="sidebar-left" class="hidden md:block"><Navigation /></div>
+    <div id="sidebar-left" class="hidden md:block">
+      <Navigation />
+    </div>
   </svelte:fragment>
   <slot />
+  <svelte:fragment slot="sidebarRight" />
 </AppShell>
