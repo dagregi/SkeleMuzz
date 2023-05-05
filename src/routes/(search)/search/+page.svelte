@@ -1,16 +1,17 @@
 <script lang="ts">
+  import { enhance } from "$app/forms";
   import {
     AppBar,
     RadioGroup,
     RadioItem,
     focusTrap,
   } from "@skeletonlabs/skeleton";
+  import type { PageData } from "./$types";
 
-  const search = () => {
-    console.log(77);
-  };
+  export let data: PageData;
 
-  let param: number;
+  const { results } = data;
+  let type: string;
   let query: string;
 </script>
 
@@ -19,16 +20,18 @@
     <a href="/">(back)</a>
   </svelte:fragment>
   <form
-    on:submit|preventDefault={search}
     class="input-group input-group-divider grid-cols-[auto_1fr_auto]"
     use:focusTrap={false}
     method="POST"
+    action="?/search={query}&type={type}"
   >
-    <div class="input-group-shim">(icon)</div>
+    <button type="submit" class="input-group-shim">(icon)</button>
     <input
       bind:value={query}
       class="w-full p-1.5 rounded-sm outline-none"
-      type="search"
+      name="search"
+      type="text"
+      required
       placeholder="Search..."
     />
   </form>
@@ -40,9 +43,24 @@
       border="none"
       display="flex"
     >
-      <RadioItem bind:group={param} name="justify" value={0}>(label)</RadioItem>
-      <RadioItem bind:group={param} name="justify" value={1}>(label)</RadioItem>
-      <RadioItem bind:group={param} name="justify" value={2}>(label)</RadioItem>
+      <RadioItem bind:group={type} name="justify" value={"track"}>
+        Tracks
+      </RadioItem>
+      <RadioItem bind:group={type} name="justify" value={"album"}>
+        Albums
+      </RadioItem>
+      <RadioItem bind:group={type} name="justify" value={"artist"}>
+        Artists
+      </RadioItem>
+      <RadioItem bind:group={type} name="justify" value={"playlist"}>
+        Playlists
+      </RadioItem>
     </RadioGroup>
   </svelte:fragment>
 </AppBar>
+
+<div>
+  {#each results?.data as item}
+    <h3>{item?.title}</h3>
+  {/each}
+</div>

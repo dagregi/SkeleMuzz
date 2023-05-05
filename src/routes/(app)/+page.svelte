@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Cover from "$lib/components/Cover.svelte";
   import type { PageData } from "./$types";
 
   export let data: PageData;
@@ -11,17 +12,7 @@
     class="flex px-2 overflow-x-scroll snap-x snap-mandatory scroll-smooth space-x-6 hide-scrollbar"
   >
     {#each playlists?.data as item}
-      <a
-        href="/playlist/{item.id}"
-        class="card card-hover flex-none w-40 snap-start variant-soft"
-      >
-        <img
-          class="w-full rounded-sm object-cover"
-          src={item.picture_medium}
-          alt={item.title}
-        />
-        <h5 class="my-2">{item.title}</h5>
-      </a>
+      <Cover {item} />
     {/each}
   </div>
   <h3>Popular artists</h3>

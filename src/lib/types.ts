@@ -22,6 +22,12 @@ export type ArtistResponse = {
   next?: string;
 };
 
+export type SearchResponse =
+  | ArtistResponse
+  | TrackResponse
+  | PlaylistResponse
+  | AlbumResponse;
+
 export type Track = {
   id?: number;
   readable?: boolean;
@@ -71,7 +77,7 @@ export type Album = {
   explicit_content_cover?: number;
   contributors?: Contributor[];
   artist?: Artist;
-  tracks?: { data: Track[] };
+  tracks?: TrackResponse;
   type?: "album";
 };
 
@@ -116,7 +122,7 @@ export type Playlist = {
   picture_type?: "playlist";
   user?: User;
   creator?: User;
-  tracks?: { data: Track[] };
+  tracks?: TrackResponse;
   type?: "playlist";
 };
 

@@ -34,7 +34,7 @@
 
 <div class="flex flex-col w-full">
   <ol class="list">
-    {#each playlist.tracks.data as track, index}
+    {#each playlist.tracks?.data ?? [] as track, index}
       <li class="list-option">
         <span class="badge">{++index}</span>
         <span class="flex-auto">
