@@ -3,8 +3,6 @@ import type { RequestHandler } from "./$types";
 
 export const GET: RequestHandler = async ({ params }) => {
   const { id } = params;
-  const response = await fetch(
-    `https://api.deezer.com/artist/${id}/related?limit=10`
-  );
+  const response = await fetch(`https://api.deezer.com/playlist/${id}`);
   return json(await response.json());
 };

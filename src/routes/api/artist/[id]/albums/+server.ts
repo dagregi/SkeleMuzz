@@ -1,8 +1,10 @@
-import { json } from '@sveltejs/kit';
-import type { RequestHandler } from './$types';
+import { json } from "@sveltejs/kit";
+import type { RequestHandler } from "./$types";
 
 export const GET: RequestHandler = async ({ params }) => {
-	const { id } = params;
-	const response = await fetch(`https://api.deezer.com/artist/${id}/albums`);
-	return json(await response.json());
+  const { id } = params;
+  const response = await fetch(
+    `https://api.deezer.com/artist/${id}/albums?limit=12`
+  );
+  return json(await response.json());
 };

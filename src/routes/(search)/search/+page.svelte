@@ -16,7 +16,7 @@
 
 <AppBar regionRowHeadline="px-1 overflow-x-scroll hide-scrollbar">
   <svelte:fragment slot="lead">
-    <button>(back)</button>
+    <a href="/">(back)</a>
   </svelte:fragment>
   <form
     on:submit|preventDefault={search}

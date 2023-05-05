@@ -1,0 +1,43 @@
+<script lang="ts">
+  import type { PageData } from "./$types";
+
+  export let data: PageData;
+  const { playlists, topArtists } = data;
+</script>
+
+<div class="container mx-auto p-8 space-y-8">
+  <h3>Popular playlists</h3>
+  <div
+    class="flex px-2 overflow-x-scroll snap-x snap-mandatory scroll-smooth space-x-6 hide-scrollbar"
+  >
+    {#each playlists?.data as item}
+      <a
+        href="/playlist/{item.id}"
+        class="card card-hover flex-none w-40 snap-start variant-soft"
+      >
+        <img
+          class="w-full rounded-sm object-cover"
+          src={item.picture_medium}
+          alt={item.title}
+        />
+        <h5 class="my-2">{item.title}</h5>
+      </a>
+    {/each}
+  </div>
+  <h3>Popular artists</h3>
+  <div class="grid grid-cols-2 gap-2 mx-auto">
+    {#each topArtists?.data as artist}
+      <a
+        href="/artist/{artist.id}"
+        class="card card-hover my-2 flex-none w-40 variant-soft"
+      >
+        <img
+          class="w-full rounded-sm object-cover"
+          src={artist?.picture_big}
+          alt={artist?.name}
+        />
+        <h5 class="my-2">{artist?.name}</h5>
+      </a>
+    {/each}
+  </div>
+</div>
