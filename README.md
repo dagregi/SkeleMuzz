@@ -21,5 +21,5 @@ npm run dev
 
 ## Credits
 
-[Skeleton Ui]("https://github.com/skeletonlabs/skeleton) for the amazing ui
+[Skeleton UI](https://github.com/skeletonlabs/skeleton) for the amazing ui
 
