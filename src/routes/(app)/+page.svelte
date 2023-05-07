@@ -19,6 +19,7 @@
   <div class="grid grid-cols-2 gap-2 mx-auto">
     {#each topArtists?.data as artist}
       <a
+        data-sveltekit-noscroll
         href="/artist/{artist.id}"
         class="card card-hover my-2 flex-none w-40 variant-soft"
       >

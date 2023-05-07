@@ -15,7 +15,7 @@
     bgDrawer: "bg-surface-800",
     rounded: "rounded-none",
     bgBackdrop: "variant-glass",
-    width: "w-[320px] md:w-[480px]",
+    width: "w-[320px] ",
   };
   function drawerOpen(): void {
     drawerStore.open(drawerSettings);
@@ -26,7 +26,7 @@
 </script>
 
 <SideBar on:click={drawerClose} />
-<AppShell>
+<AppShell slotSidebarLeft="bg-surface-800 md:w-[320px]">
   <svelte:fragment slot="header">
     <AppBar
       gridColumns="grid-cols-3"
@@ -35,18 +35,12 @@
     >
       <svelte:fragment slot="lead">
         <button class="md:hidden btn btn-sm mr-4" on:click={drawerOpen}>
-          <span>
-            <svg viewBox="0 0 100 80" class="fill-token w-4 h-4">
-              <rect width="100" height="20" />
-              <rect y="30" width="100" height="20" />
-              <rect y="60" width="100" height="20" />
-            </svg>
-          </span>
+          <i class="fa fa-bars" />
         </button>
       </svelte:fragment>
-      <h2>(title)</h2>
+      <h2>SkeleMuzz</h2>
       <svelte:fragment slot="trail">
-        <a href="/search">(search)</a>
+        <a href="/search"><i class="fa fa-search" /></a>
       </svelte:fragment>
     </AppBar>
   </svelte:fragment>

@@ -1,23 +1,23 @@
 export type PlaylistResponse = {
-  data: Playlist[];
+  data?: Playlist[];
   total?: number;
   next?: string;
 };
 
 export type TrackResponse = {
-  data: Track[];
+  data?: Track[];
   total?: number;
   next?: string;
 };
 
 export type AlbumResponse = {
-  data: Album[];
+  data?: Album[];
   total?: number;
   next?: string;
 };
 
 export type ArtistResponse = {
-  data: Artist[];
+  data?: Artist[];
   total?: number;
   next?: string;
 };

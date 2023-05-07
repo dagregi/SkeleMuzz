@@ -7,6 +7,7 @@
 </script>
 
 <a
+  data-sveltekit-noscroll
   href={`/${isPlaylist ? "playlist/" + item.id : "album/" + item.id}`}
   class={`card card-hover flex-none variant-soft !bg-transparent ${
     isPlaylist ? " w-40 snap-start" : " w-64 snap-center"

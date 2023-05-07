@@ -15,14 +15,24 @@
   <ul class="list mt-2">
     <li>
       <span class="flex-auto space-y-2">
-        <h1>{album.title}</h1>
+        <h1 class="mb-2">{album.title}</h1>
+        <a
+          href="/artist/{album.artist?.id}"
+          class="text-md !no-underline !text-tertiary-100/80"
+        >
+          {album.artist?.name}
+        </a>
       </span>
     </li>
   </ul>
   <ul class="list text-sm text-surface-200">
     <li>
-      <span>{album.fans?.toLocaleString()} fans</span>
-      <span>{convertTime(album.duration)}</span>
+      <span>{album.release_date?.slice(0, 4)}</span>
+      <div class="divider-vertical rounded-full h-full bg-tertiary-500 w-1" />
+      <span>
+        {album.nb_tracks} songs
+        <span>{convertTime(album.duration)}</span>
+      </span>
     </li>
   </ul>
 </div>
