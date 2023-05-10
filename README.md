@@ -17,10 +17,10 @@ npm run dev
 ## TODO
 
 - [x] Add a search functionality
-- [ ] Add music playback
+- [x] Add music playback
+- [ ] Fix the player
 - [ ] Improve performance
 
 ## Credits
 
 [Skeleton UI](https://github.com/skeletonlabs/skeleton) for the amazing ui
-

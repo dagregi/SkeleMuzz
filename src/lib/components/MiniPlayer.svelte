@@ -1,6 +1,8 @@
 <script lang="ts">
-  import { openPlayer } from "$lib/player";
-  import { trackStore } from "$lib/store";
+  import { createPlayer, openPlayer } from "$lib/player";
+  import { isPlaying, trackStore } from "$lib/store";
+
+  // const { audio } = createPlayer();
 </script>
 
 <footer class="variant-glass">
@@ -17,7 +19,18 @@
         <h4 class="truncate">{$trackStore.title_short}</h4>
       </span>
       <button class="list-option">
-        <i class="fa fa-play" />
+        <!-- on:click={() => { -->
+        <!--   if ($isPlaying) { -->
+        <!--     audio.pause(); -->
+        <!--   } else { -->
+        <!--     audio.play(); -->
+        <!--   } -->
+        <!-- }} -->
+        {#if $isPlaying}
+          <i class="fa-solid fa-pause" />
+        {:else}
+          <i class="fa-solid fa-play" />
+        {/if}
       </button>
     </li>
   </ul>

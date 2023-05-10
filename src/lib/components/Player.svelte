@@ -1,6 +1,10 @@
 <script>
-  import { trackStore } from "$lib/store";
+  import { createPlayer } from "$lib/player";
+  import { currentTime, duration, isPlaying, trackStore } from "$lib/store";
+  import { formatDuration } from "$lib/utils";
   import { RangeSlider, drawerStore } from "@skeletonlabs/skeleton";
+
+  const { audio, skipPrev, skipNext } = createPlayer();
 </script>
 
 <div class="flex flex-col content-between w-full px-4 py-2 mx-auto">
@@ -25,20 +29,37 @@
     <p>{$trackStore.artist?.name}</p>
   </span>
   <div class="my-4">
-    <RangeSlider name="player-slider" value={50} max={100} step={1} />
+    <RangeSlider
+      name="player-slider"
+      value={$currentTime}
+      max={$duration}
+      step={1}
+    />
     <span class="flex px-1 justify-between">
-      <small>00:00</small>
-      <small>99:99</small>
+      <small>{formatDuration($currentTime)}</small>
+      <small>{formatDuration($duration)}</small>
     </span>
   </div>
   <div class="bg-transparent mx-auto mt-6 p-2 space-x-8 scale-150">
-    <button>
+    <button on:click={() => skipPrev($trackStore.preview)}>
       <i class="fa-solid fa-backward-step fa-lg" />
     </button>
-    <button>
-      <i class="fa-solid fa-circle-play fa-2xl" />
+    <button
+      on:click={() => {
+        if ($isPlaying) {
+          audio.pause();
+        } else {
+          audio.play();
+        }
+      }}
+    >
+      {#if $isPlaying}
+        <i class="fa-solid fa-circle-pause fa-2xl" />
+      {:else}
+        <i class="fa-solid fa-circle-play fa-2xl" />
+      {/if}
     </button>
-    <button>
+    <button on:click={() => skipNext($trackStore.preview)}>
       <i class="fa-solid fa-forward-step fa-lg" />
     </button>
   </div>

@@ -1,13 +1,13 @@
 <script lang="ts">
   import type { PageData } from "./$types";
   import { convertTime } from "$lib/utils";
-  import { trackStore } from "$lib/store";
+  import { playlistStore, trackStore } from "$lib/store";
 
   export let data: PageData;
   const { playlist } = data;
 
-  if (!$trackStore) {
-    $trackStore = playlist.tracks?.data[0];
+  if (!$playlistStore) {
+    $playlistStore = playlist.tracks?.data;
   }
 </script>
 

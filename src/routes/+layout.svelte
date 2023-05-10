@@ -6,21 +6,13 @@
 
   import { Drawer, drawerStore } from "@skeletonlabs/skeleton";
   import SideBar from "$lib/components/SideBar.svelte";
-  import { trackStore } from "$lib/store";
-  import { onMount } from "svelte";
   import Player from "$lib/components/Player.svelte";
   import MiniPlayer from "$lib/components/MiniPlayer.svelte";
+  import { trackStore } from "$lib/store";
 
   function drawerClose(): void {
     drawerStore.close();
   }
-
-  let player;
-  onMount(() => {
-    return trackStore.subscribe(() => {
-      player.load();
-    });
-  });
 </script>
 
 <Drawer>
@@ -30,9 +22,6 @@
     <Player />
   {/if}
 </Drawer>
-<audio bind:this={player} controls>
-  <source src={$trackStore?.preview} type="audio/mpeg" />
-</audio>
 <slot />
 {#if $trackStore}
   <MiniPlayer />
