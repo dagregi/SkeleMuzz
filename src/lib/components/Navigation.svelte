@@ -10,9 +10,9 @@
       <a href="/" class={classesActive("/")} on:click><span>Home</span></a>
     </li>
     <li class="my-2">
-      <a href="/search" class={classesActive("/search")} on:click
-        ><span>Search</span></a
-      >
+      <a href="/search" class={classesActive("/search")} on:click>
+        <span>Search</span>
+      </a>
     </li>
     <li class="my-2">
       <hr class="rounded-full !border-t-4" />
@@ -21,7 +21,7 @@
       <a href="https://github.com/dagregi"><span>Github</span></a>
     </li>
     <li class="my-2">
-      <a href="https://t.me/dagregi"><span>Telegram</span></a>
+      <a href="https://t.me"><span>Telegram</span></a>
     </li>
   </ul>
 </nav>

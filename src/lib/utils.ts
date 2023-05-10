@@ -1,4 +1,4 @@
-export const secondsToMinutes = (sec: number | undefined) => {
+export const formatDuration = (sec: number | undefined) => {
   if (!sec) return "00:00";
   sec = Math.trunc(+sec);
   const minutes = Math.floor(sec / 60);
