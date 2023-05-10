@@ -14,7 +14,7 @@
 >
   <img
     class="w-full rounded-sm object-cover"
-    src={item.cover_big ?? item.picture_medium}
+    src={item.cover_medium ?? item.picture_medium}
     alt={item.title}
   />
   <h5 class="mt-2 truncate">{item.title}</h5>

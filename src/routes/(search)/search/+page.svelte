@@ -1,9 +1,11 @@
 <script lang="ts">
-  import Loader from "$lib/components/Loader.svelte";
+  import { page } from "$app/stores";
+  import SearchContent from "$lib/components/SearchContent.svelte";
+  import Loader from "$lib/components/loaders/Loader.svelte";
   import type { SearchResponse } from "$lib/types";
   import { AppBar, RadioGroup, RadioItem } from "@skeletonlabs/skeleton";
 
-  let typeArray = ["track", "album", "artist", "playlist"];
+  let typeArray = ["Track", "Album", "Artist", "Playlist"];
   let query: string;
   let type = "track";
   let data = {};
@@ -39,9 +41,9 @@
 
 <AppBar regionRowHeadline="px-1 overflow-x-scroll hide-scrollbar">
   <svelte:fragment slot="lead">
-    <a href="/" class="list-option">
+    <button on:click={() => history.back()} class="list-option">
       <i class="fa fa-arrow-left" />
-    </a>
+    </button>
   </svelte:fragment>
   <div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
     <div class="input-group-shim">
@@ -70,43 +72,22 @@
           bind:group={type}
           name="type"
           on:change={handle_search}
-          value={item}
+          value={item.toLowerCase()}
         >
-          {item.replace(item[0], item[0].toUpperCase())}
+          {item}
         </RadioItem>
       {/each}
     </RadioGroup>
   </svelte:fragment>
 </AppBar>
 
-<!-- {#if $data.isLoading} -->
-<!--   <Loader /> -->
-<!-- {:else if $data.isError} -->
-<!--   <aside -->
-<!--     class="alert items-center my-2 mx-auto" -->
-<!--     transition:fade|local={{ duration: 200 }} -->
-<!--   > -->
-<!--     <div class="alert-message"> -->
-<!--       <h2 class="text-center">Oops!</h2> -->
-<!--       <p>There seems to be a problem.</p> -->
-<!--     </div> -->
-<!--   </aside> -->
-<!-- {:else} -->
 {#if searching}
   <Loader />
 {:else}
   <ul class="list">
     {#each data?.data ?? [] as item}
       <li class="list-option">
-        <img
-          class="w-14 h-14 object-cover"
-          src={item.cover ?? item.album?.cover ?? item.picture}
-          alt={item.name ?? item.title}
-        />
-        <span class="flex-auto truncate">
-          <h5 class="truncate">{item.name ?? item.title}</h5>
-          <p>{item.type}</p>
-        </span>
+        <SearchContent {type} {item} />
       </li>
     {/each}
   </ul>

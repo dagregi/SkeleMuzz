@@ -1,9 +1,10 @@
 <script lang="ts">
   import Cover from "$lib/components/Cover.svelte";
+  import CoverLoader from "$lib/components/loaders/CoverLoader.svelte";
   import type { PageData } from "./$types";
 
   export let data: PageData;
-  const { playlists, topArtists } = data;
+  const { lazy } = data;
 </script>
 
 <div class="container mx-auto p-8 space-y-8">
@@ -11,24 +12,34 @@
   <div
     class="flex px-2 overflow-x-scroll snap-x snap-mandatory scroll-smooth space-x-6 hide-scrollbar"
   >
-    {#each playlists?.data as item}
-      <Cover {item} />
-    {/each}
+    {#await lazy.playlists}
+      <CoverLoader />
+    {:then playlists}
+      <!-- promise was fulfilled -->
+      {#each playlists?.data as item}
+        <Cover {item} />
+      {/each}
+    {/await}
   </div>
   <h3>Popular artists</h3>
   <div class="grid grid-cols-2 gap-2 mx-auto">
-    {#each topArtists?.data as artist}
-      <a
-        href="/artist/{artist.id}"
-        class="card card-hover my-2 flex-none w-40 variant-soft"
-      >
-        <img
-          class="w-full rounded-sm object-cover"
-          src={artist?.picture_big}
-          alt={artist?.name}
-        />
-        <h5 class="my-2">{artist?.name}</h5>
-      </a>
-    {/each}
+    {#await lazy.topArtists}
+      <CoverLoader />
+    {:then topArtists}
+      <!-- promise was fulfilled -->
+      {#each topArtists?.data as artist}
+        <a
+          href="/artist/{artist.id}"
+          class="card card-hover my-2 flex-none w-40 !bg-transparent variant-soft"
+        >
+          <img
+            class="w-full rounded-sm object-cover"
+            src={artist?.picture_medium}
+            alt={artist?.name}
+          />
+          <h5 class="my-2">{artist?.name}</h5>
+        </a>
+      {/each}
+    {/await}
   </div>
 </div>

@@ -2,10 +2,12 @@
   import ArtistProfile from "$lib/components/ArtistProfile.svelte";
   import Cover from "$lib/components/Cover.svelte";
   import TrackList from "$lib/components/TrackList.svelte";
+  import CoverLoader from "$lib/components/loaders/CoverLoader.svelte";
+  import Loader from "$lib/components/loaders/Loader.svelte";
   import type { PageData } from "./$types";
 
   export let data: PageData;
-  const { artist, topSongs: tracks, related, albums } = data;
+  const { artist, lazy } = data;
 </script>
 
 <div
@@ -17,15 +19,33 @@
   </span>
 </div>
 <h2 class="px-3 py-4 text-tertiary-600-300-token">Top tracks</h2>
-<TrackList {tracks} />
+{#await lazy.topSongs}
+  <!-- Promise is pending -->
+  <Loader />
+{:then tracks}
+  <!-- Promise was fulfilled -->
+  <TrackList {tracks} />
+{:catch error}
+  <!-- Promise was rejected -->
+  <pre class="variant-ringed-error">{error}</pre>
+{/await}
 <h2 class="px-3 py-4 text-tertiary-600-300-token">Albums</h2>
 <!-- Album scrollable -->
 <div
   class="flex my-4 px-2 h-auto overflow-x-scroll snap-x scroll-smooth space-x-6 hide-scrollbar"
 >
-  {#each albums.data as item}
-    <Cover {item} />
-  {/each}
+  {#await lazy.albums}
+    <!-- Promise is pending -->
+    <CoverLoader />
+  {:then albums}
+    <!-- Promise was fulfilled -->
+    {#each albums.data as item}
+      <Cover {item} />
+    {/each}
+  {:catch error}
+    <!-- Promise was rejected -->
+    <pre class="variant-ringed-error">{error}</pre>
+  {/await}
 </div>
 <!-- end -->
 <h2 class="px-3 py-4 text-tertiary-600-300-token">Related artists</h2>
@@ -33,13 +53,22 @@
 <div
   class="flex my-4 px-2 h-auto overflow-x-scroll snap-x snap-mandatory scroll-smooth space-x-8 hide-scrollbar"
 >
-  {#each related.data as artist}
-    <a
-      href="/artist/{artist.id}"
-      class="flex-none card text-center variant-soft !bg-transparent snap-center"
-    >
-      <ArtistProfile {artist} />
-    </a>
-  {/each}
+  {#await lazy.related}
+    <!-- Promise is pending -->
+    <CoverLoader />
+  {:then related}
+    <!-- Promise was fulfilled -->
+    {#each related.data as artist}
+      <a
+        href="/artist/{artist.id}"
+        class="flex-none card text-center variant-soft !bg-transparent snap-center"
+      >
+        <ArtistProfile {artist} />
+      </a>
+    {/each}
+  {:catch error}
+    <!-- Promise was rejected -->
+    <pre class="variant-ringed-error">{error}</pre>
+  {/await}
 </div>
 <!-- end -->

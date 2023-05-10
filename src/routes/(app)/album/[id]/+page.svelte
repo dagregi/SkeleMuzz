@@ -5,7 +5,7 @@
 
   export let data: PageData;
   const { album } = data;
-  $: tracks = album.tracks ?? [];
+  const tracks = album?.tracks ?? [];
 </script>
 
 <div

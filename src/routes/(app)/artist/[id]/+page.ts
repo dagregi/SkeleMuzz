@@ -37,8 +37,10 @@ export const load: PageLoad = ({ params, fetch }) => {
 
   return {
     artist: getArtist(),
-    albums: getArtistAlbums(),
-    topSongs: getArtistTopSongs(),
-    related: getArtistRelated(),
+    lazy: {
+      albums: getArtistAlbums(),
+      topSongs: getArtistTopSongs(),
+      related: getArtistRelated(),
+    },
   };
 };

@@ -3,7 +3,7 @@
   import { trackStore } from "$lib/store";
 </script>
 
-<footer class="variant-glass fixed bottom-0 w-full">
+<footer class="variant-glass">
   <ul class="list px-2">
     <li>
       <span>

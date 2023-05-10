@@ -18,7 +18,9 @@ export const load: PageLoad = async ({ fetch, setHeaders }) => {
   };
 
   return {
-    playlists: getPlaylists(),
-    topArtists: getTopArtists(),
+    lazy: {
+      playlists: getPlaylists(),
+      topArtists: getTopArtists(),
+    },
   };
 };
