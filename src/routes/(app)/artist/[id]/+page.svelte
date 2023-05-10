@@ -21,7 +21,7 @@
 <h2 class="px-3 py-4 text-tertiary-600-300-token">Albums</h2>
 <!-- Album scrollable -->
 <div
-  class="flex px-2 h-auto overflow-x-scroll snap-x snap-mandatory scroll-smooth space-x-6 hide-scrollbar"
+  class="flex my-4 px-2 h-auto overflow-x-scroll snap-x scroll-smooth space-x-6 hide-scrollbar"
 >
   {#each albums.data as item}
     <Cover {item} />
@@ -31,7 +31,7 @@
 <h2 class="px-3 py-4 text-tertiary-600-300-token">Related artists</h2>
 <!-- Artist scrollable -->
 <div
-  class="flex px-2 h-auto overflow-x-scroll snap-x snap-mandatory scroll-smooth space-x-8 hide-scrollbar"
+  class="flex my-4 px-2 h-auto overflow-x-scroll snap-x snap-mandatory scroll-smooth space-x-8 hide-scrollbar"
 >
   {#each related.data as artist}
     <a

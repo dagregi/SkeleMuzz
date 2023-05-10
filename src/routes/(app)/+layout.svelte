@@ -7,7 +7,6 @@
   import { drawerStore } from "@skeletonlabs/skeleton";
 
   import Navigation from "$lib/components/Navigation.svelte";
-  import SideBar from "$lib/components/SideBar.svelte";
 
   const drawerSettings: DrawerSettings = {
     id: "sidebar",
@@ -20,12 +19,8 @@
   function drawerOpen(): void {
     drawerStore.open(drawerSettings);
   }
-  function drawerClose(): void {
-    drawerStore.close();
-  }
 </script>
 
-<SideBar on:click={drawerClose} />
 <AppShell slotSidebarLeft="bg-surface-800 md:w-[320px]">
   <svelte:fragment slot="header">
     <AppBar

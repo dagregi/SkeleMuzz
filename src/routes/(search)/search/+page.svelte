@@ -1,30 +1,40 @@
 <script lang="ts">
   import Loader from "$lib/components/Loader.svelte";
   import type { SearchResponse } from "$lib/types";
-  import {
-    AppBar,
-    RadioGroup,
-    RadioItem,
-    focusTrap,
-  } from "@skeletonlabs/skeleton";
-  import { createQuery } from "@tanstack/svelte-query";
-  import { fade } from "svelte/transition";
+  import { AppBar, RadioGroup, RadioItem } from "@skeletonlabs/skeleton";
 
   let typeArray = ["track", "album", "artist", "playlist"];
   let query: string;
-  let type: string;
-  const searchResults = async () => {
+  let type = "track";
+  let data = {};
+
+  let timeout: number | undefined;
+  let searching = false;
+
+  function handle_search() {
+    searching = true;
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(searchResults, 300);
+  }
+
+  function reset() {
+    data = {};
+    searching = false;
+  }
+
+  async function searchResults() {
+    if (!query) {
+      reset();
+      return;
+    }
+
     const response = await fetch(
       `/api/search/${query}${type === undefined || null ? "" : "/" + type}`
     );
-    return (await response.json()) as SearchResponse;
-  };
 
-  $: data = createQuery({
-    queryKey: ["search"],
-    queryFn: () => searchResults(),
-    enabled: Boolean(query),
-  });
+    data = (await response.json()) as SearchResponse;
+    searching = false;
+  }
 </script>
 
 <AppBar regionRowHeadline="px-1 overflow-x-scroll hide-scrollbar">
@@ -33,24 +43,20 @@
       <i class="fa fa-arrow-left" />
     </a>
   </svelte:fragment>
-  <form
-    class="input-group input-group-divider grid-cols-[auto_1fr_auto]"
-    use:focusTrap={true}
-    action="/search"
-  >
-    <button type="submit" class="input-group-shim">
+  <div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
+    <div class="input-group-shim">
       <i class="fa fa-search" />
-    </button>
+    </div>
     <input
       bind:value={query}
-      class="w-full p-1.5 rounded-sm outline-none"
+      on:input={handle_search}
+      class="p-1.5 outline-none"
       name="q"
       type="text"
-      required
       placeholder="Search..."
+      required
     />
-    <input type="hidden" name="type" value={type} />
-  </form>
+  </div>
 
   <svelte:fragment slot="headline">
     <RadioGroup
@@ -60,29 +66,37 @@
       display="flex"
     >
       {#each typeArray as item}
-        <RadioItem bind:group={type} name="justify" value={item}>
-          {item}
+        <RadioItem
+          bind:group={type}
+          name="type"
+          on:change={handle_search}
+          value={item}
+        >
+          {item.replace(item[0], item[0].toUpperCase())}
         </RadioItem>
       {/each}
     </RadioGroup>
   </svelte:fragment>
 </AppBar>
 
-{#if $data.isLoading}
+<!-- {#if $data.isLoading} -->
+<!--   <Loader /> -->
+<!-- {:else if $data.isError} -->
+<!--   <aside -->
+<!--     class="alert items-center my-2 mx-auto" -->
+<!--     transition:fade|local={{ duration: 200 }} -->
+<!--   > -->
+<!--     <div class="alert-message"> -->
+<!--       <h2 class="text-center">Oops!</h2> -->
+<!--       <p>There seems to be a problem.</p> -->
+<!--     </div> -->
+<!--   </aside> -->
+<!-- {:else} -->
+{#if searching}
   <Loader />
-{:else if $data.isError}
-  <aside
-    class="alert items-center my-2 mx-auto"
-    transition:fade|local={{ duration: 200 }}
-  >
-    <div class="alert-message">
-      <h2 class="text-center">Oops!</h2>
-      <p>There seems to be a problem.</p>
-    </div>
-  </aside>
 {:else}
   <ul class="list">
-    {#each $data.data?.data ?? [] as item}
+    {#each data?.data ?? [] as item}
       <li class="list-option">
         <img
           class="w-14 h-14 object-cover"

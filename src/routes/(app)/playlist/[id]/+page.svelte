@@ -1,9 +1,14 @@
 <script lang="ts">
   import type { PageData } from "./$types";
   import { convertTime } from "$lib/utils";
+  import { trackStore } from "$lib/store";
 
   export let data: PageData;
   const { playlist } = data;
+
+  if (!$trackStore) {
+    $trackStore = playlist.tracks?.data[0];
+  }
 </script>
 
 <div
@@ -36,7 +41,9 @@
   <ol class="list">
     {#each playlist.tracks?.data ?? [] as track, index}
       <li class="list-option">
-        <span class="badge">{++index}</span>
+        <span class="badge">
+          <button on:click={() => ($trackStore = track)}>play</button>
+        </span>
         <span class="flex-auto">
           <h5 class="truncate">{track?.title}</h5>
           <dd class="text-sm text-surface-300">{track?.artist?.name}</dd>
