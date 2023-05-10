@@ -16,8 +16,9 @@ npm run dev
 
 ## TODO
 
-- [ ] Add a search functiinality
+- [ ] Add a search functionality
 - [ ] Add music playback
+- [ ] Improve performance
 
 ## Credits
 

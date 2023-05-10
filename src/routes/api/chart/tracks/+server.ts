@@ -1,7 +1,7 @@
-import { json } from '@sveltejs/kit';
-import type { RequestHandler } from './$types';
+import { json } from "@sveltejs/kit";
+import type { RequestHandler } from "./$types";
 
-export const GET: RequestHandler = async () => {
-	const res = await fetch('https://api.deezer.com/chart/0/tracks');
-	return json(await res.json());
+export const GET: RequestHandler = async ({ fetch }) => {
+  const res = await fetch("https://api.deezer.com/chart/0/tracks");
+  return json(await res.json());
 };
