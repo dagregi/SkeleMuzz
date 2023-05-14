@@ -1,13 +1,14 @@
 <script lang="ts">
   import ArtistProfile from "$lib/components/ArtistProfile.svelte";
   import Cover from "$lib/components/Cover.svelte";
-  import TrackList from "$lib/components/TrackList.svelte";
   import CoverLoader from "$lib/components/loaders/CoverLoader.svelte";
+  import Error from "$lib/components/Error.svelte";
   import Loader from "$lib/components/loaders/Loader.svelte";
+  import TrackList from "$lib/components/TrackList.svelte";
   import type { PageData } from "./$types";
 
   export let data: PageData;
-  const { artist, lazy } = data;
+  $: ({ artist, lazy } = data);
 </script>
 
 <div
@@ -24,10 +25,10 @@
   <Loader />
 {:then tracks}
   <!-- Promise was fulfilled -->
-  <TrackList {tracks} />
+  <TrackList tracks={tracks?.data} />
 {:catch error}
   <!-- Promise was rejected -->
-  <pre class="variant-ringed-error">{error}</pre>
+  <Error />
 {/await}
 <h2 class="px-3 py-4 text-tertiary-600-300-token">Albums</h2>
 <!-- Album scrollable -->
@@ -44,7 +45,7 @@
     {/each}
   {:catch error}
     <!-- Promise was rejected -->
-    <pre class="variant-ringed-error">{error}</pre>
+    <Error />
   {/await}
 </div>
 <!-- end -->
@@ -68,7 +69,7 @@
     {/each}
   {:catch error}
     <!-- Promise was rejected -->
-    <pre class="variant-ringed-error">{error}</pre>
+    <Error />
   {/await}
 </div>
 <!-- end -->

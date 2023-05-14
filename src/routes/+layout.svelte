@@ -6,8 +6,8 @@
 
   import { Drawer, drawerStore } from "@skeletonlabs/skeleton";
   import SideBar from "$lib/components/SideBar.svelte";
-  import Player from "$lib/components/Player.svelte";
-  import MiniPlayer from "$lib/components/MiniPlayer.svelte";
+  import Player from "$lib/components/player/Player.svelte";
+  import MiniPlayer from "$lib/components/player/MiniPlayer.svelte";
   import { trackStore } from "$lib/store";
 
   function drawerClose(): void {

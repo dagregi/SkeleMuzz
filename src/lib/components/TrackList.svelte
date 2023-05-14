@@ -1,13 +1,13 @@
 <script lang="ts">
-  import type { TrackResponse } from "$lib/types";
+  import type { Track } from "$lib/types";
   import { convertTime } from "$lib/utils";
 
-  export let tracks: TrackResponse;
+  export let tracks: Track[];
 </script>
 
 <div class="flex flex-col w-full">
   <ol class="list">
-    {#each tracks.data as track, index}
+    {#each tracks as track, index}
       <li class="list-option">
         <span class="badge">{++index}</span>
         <span class="flex-auto truncate">

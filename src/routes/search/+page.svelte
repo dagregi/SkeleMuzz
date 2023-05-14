@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { page } from "$app/stores";
   import SearchContent from "$lib/components/SearchContent.svelte";
   import Loader from "$lib/components/loaders/Loader.svelte";
   import type { SearchResponse } from "$lib/types";

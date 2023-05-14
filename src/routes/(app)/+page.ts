@@ -2,19 +2,21 @@ import type { ArtistResponse, PlaylistResponse } from "$lib/types";
 import type { PageLoad } from "./$types";
 
 export const load: PageLoad = async ({ fetch, setHeaders }) => {
+  setHeaders({
+    "cache-control": "max-age=600",
+  });
   const getPlaylists = async () => {
     const response = await fetch("/api/chart/playlists");
-    setHeaders({
-      "cache-control": "max-age=600",
-    });
-    const data = await response.json();
-    return data as PlaylistResponse;
+    if (!response.ok) return [];
+    const data = (await response.json()) as PlaylistResponse;
+    return data;
   };
 
   const getTopArtists = async () => {
     const response = await fetch("/api/chart/artists");
-    const data = await response.json();
-    return data as ArtistResponse;
+    if (!response.ok) return [];
+    const data = (await response.json()) as ArtistResponse;
+    return data;
   };
 
   return {

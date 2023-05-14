@@ -5,7 +5,7 @@
 
   export let data: PageData;
   const { album } = data;
-  const tracks = album?.tracks ?? [];
+  const tracks = album?.tracks?.data ?? [];
 </script>
 
 <div
@@ -24,14 +24,12 @@
         </a>
       </span>
     </li>
-  </ul>
-  <ul class="list text-sm text-surface-200">
-    <li>
+    <li class="text-sm text-surface-200">
       <span>{album.release_date?.slice(0, 4)}</span>
       <div class="divider-vertical rounded-full h-full bg-tertiary-500 w-1" />
-      <span>
-        {album.nb_tracks} songs
-        <span>{convertTime(album.duration)}</span>
+      <span class="flex gap-2">
+        <p>{album.nb_tracks} songs,</p>
+        <p>{convertTime(album.duration)}</p>
       </span>
     </li>
   </ul>

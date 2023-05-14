@@ -5,6 +5,7 @@
 </script>
 
 <img
+  loading="lazy"
   src={artist.picture_big}
   alt={artist.name}
   class="mx-auto rounded-full w-36 h-36"

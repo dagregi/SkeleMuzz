@@ -2,9 +2,10 @@
   import Cover from "$lib/components/Cover.svelte";
   import CoverLoader from "$lib/components/loaders/CoverLoader.svelte";
   import type { PageData } from "./$types";
+  import Error from "$lib/components/Error.svelte";
 
   export let data: PageData;
-  const { lazy } = data;
+  $: ({ lazy } = data);
 </script>
 
 <div class="container mx-auto p-8 space-y-8">
@@ -19,6 +20,8 @@
       {#each playlists?.data as item}
         <Cover {item} />
       {/each}
+    {:catch error}
+      <Error />
     {/await}
   </div>
   <h3>Popular artists</h3>
@@ -33,13 +36,16 @@
           class="card card-hover my-2 flex-none w-40 !bg-transparent variant-soft"
         >
           <img
-            class="w-full rounded-sm object-cover"
+            loading="lazy"
             src={artist?.picture_medium}
             alt={artist?.name}
+            class="w-full rounded-sm object-cover"
           />
           <h5 class="my-2">{artist?.name}</h5>
         </a>
       {/each}
+    {:catch error}
+      <Error />
     {/await}
   </div>
 </div>

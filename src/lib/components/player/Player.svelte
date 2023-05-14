@@ -1,10 +1,17 @@
-<script>
+<script lang="ts">
   import { createPlayer } from "$lib/player";
-  import { currentTime, duration, isPlaying, trackStore } from "$lib/store";
+  import {
+    audioStore,
+    currentTime,
+    duration,
+    isPlaying,
+    trackStore,
+  } from "$lib/store";
   import { formatDuration } from "$lib/utils";
   import { RangeSlider, drawerStore } from "@skeletonlabs/skeleton";
 
   const { audio, skipPrev, skipNext } = createPlayer();
+  $audioStore = audio;
 </script>
 
 <div class="flex flex-col content-between w-full px-4 py-2 mx-auto">
@@ -29,12 +36,7 @@
     <p>{$trackStore.artist?.name}</p>
   </span>
   <div class="my-4">
-    <RangeSlider
-      name="player-slider"
-      value={$currentTime}
-      max={$duration}
-      step={1}
-    />
+    <RangeSlider name="player-slider" value={$currentTime} max={$duration} />
     <span class="flex px-1 justify-between">
       <small>{formatDuration($currentTime)}</small>
       <small>{formatDuration($duration)}</small>

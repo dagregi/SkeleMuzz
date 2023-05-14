@@ -12,8 +12,8 @@ const drawerSettings: DrawerSettings = {
   id: "player",
 
   bgDrawer: "variant-glass",
-  width: "w-screen",
-  height: "h-screen",
+  width: "w-full",
+  height: "h-full",
   position: "bottom",
 };
 
@@ -24,14 +24,12 @@ export function openPlayer() {
 export function createPlayer() {
   const track = get(trackStore);
   const playList = get(playlistStore);
-  const audio: HTMLAudioElement = new Audio(track.preview);
+  const audio = new Audio(track.preview);
 
   audio.addEventListener("play", () => isPlaying.set(true));
   audio.addEventListener("pause", () => isPlaying.set(false));
 
-  audio.addEventListener("ended", (ev) =>
-    skipNext(new URL(ev.target?.src).pathname)
-  );
+  audio.addEventListener("ended", (ev) => skipNext(ev.target?.src));
   audio.addEventListener("canplay", () => audio.play());
 
   audio.addEventListener("loadedmetadata", (ev) => {
@@ -49,8 +47,10 @@ export function createPlayer() {
     if (idx === playList.length - 1) {
       // go to first one
       trackStore.set(playList[0]);
+      audio.src = playList[0].preview;
     } else {
       trackStore.set(playList[idx + 1]);
+      audio.src = playList[idx + 1].preview;
     }
   };
 
@@ -59,8 +59,10 @@ export function createPlayer() {
 
     if (idx === 0) {
       trackStore.set(playList[playList.length - 1]);
+      audio.src = playList[playList.length - 1].preview;
     } else {
       trackStore.set(playList[idx - 1]);
+      audio.src = playList[idx - 1].preview;
     }
   };
   return {

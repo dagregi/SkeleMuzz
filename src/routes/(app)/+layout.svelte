@@ -33,7 +33,7 @@
           <i class="fa fa-bars" />
         </button>
       </svelte:fragment>
-      <h2>SkeleMuzz</h2>
+      <h2><a href="/">SkeleMuzz</a></h2>
       <svelte:fragment slot="trail">
         <a href="/search"><i class="fa fa-search" /></a>
       </svelte:fragment>

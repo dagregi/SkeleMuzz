@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { PageData } from "./$types";
   import { convertTime } from "$lib/utils";
-  import { playlistStore, trackStore } from "$lib/store";
+  import { isPlaying, playlistStore, trackStore } from "$lib/store";
 
   export let data: PageData;
   const { playlist } = data;
@@ -28,11 +28,13 @@
         </dd>
       </span>
     </li>
-  </ul>
-  <ul class="list text-sm text-surface-200">
-    <li>
+    <li class="text-sm text-surface-200">
       <span>{playlist.fans?.toLocaleString()} fans</span>
-      <span>{convertTime(playlist.duration)}</span>
+      <div class="divider-vertical rounded-full h-full bg-tertiary-500 w-1" />
+      <span class="flex gap-2">
+        <p>{playlist.nb_tracks} songs,</p>
+        <p>{convertTime(playlist.duration)}</p>
+      </span>
     </li>
   </ul>
 </div>
@@ -40,9 +42,21 @@
 <div class="flex flex-col w-full">
   <ol class="list">
     {#each playlist.tracks?.data ?? [] as track, index}
-      <li class="list-option">
+      <li
+        on:keypress
+        on:click={() => ($trackStore = track)}
+        class="list-option"
+      >
         <span class="badge">
-          <button on:click={() => ($trackStore = track)}>play</button>
+          {#if $trackStore}
+            {#if $isPlaying}
+              <i class="fa-solid fa-pause" />
+            {:else}
+              <i class="fa-solid fa-play" />
+            {/if}
+          {:else}
+            <p>{++index}</p>
+          {/if}
         </span>
         <span class="flex-auto">
           <h5 class="truncate">{track?.title}</h5>

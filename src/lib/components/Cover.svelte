@@ -13,9 +13,10 @@
   }`}
 >
   <img
-    class="w-full rounded-sm object-cover"
+    loading="lazy"
     src={item.cover_medium ?? item.picture_medium}
     alt={item.title}
+    class="w-full rounded-sm object-cover"
   />
   <h5 class="mt-2 truncate">{item.title}</h5>
 </a>

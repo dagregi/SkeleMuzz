@@ -9,9 +9,10 @@
 
 {#if type === "track" || type === "album"}
   <img
-    class="w-14 h-14 object-cover"
+    loading="lazy"
     src={item.cover ?? item.album?.cover}
     alt={item.title}
+    class="w-14 h-14 object-cover"
   />
   <span class="flex-auto truncate">
     <a
@@ -30,9 +31,10 @@
   </span>
 {:else if type === "artist"}
   <img
-    class="w-14 h-14 rounded-full object-cover"
+    loading="lazy"
     src={item.picture}
     alt={item.name}
+    class="w-14 h-14 rounded-full object-cover"
   />
   <span class="flex-auto truncate">
     <a href="/artist/{item.id}" class="!no-underline">
@@ -42,9 +44,10 @@
   </span>
 {:else}
   <img
-    class="w-14 h-14 object-cover"
+    loading="lazy"
     src={item.cover ?? item.album?.cover ?? item.picture}
     alt={item.name ?? item.title}
+    class="w-14 h-14 object-cover"
   />
   <span class="flex-auto truncate">
     <a href="/playlist/{item.id}" class="!no-underline">

@@ -18,7 +18,7 @@ npm run dev
 
 - [x] Add a search functionality
 - [x] Add music playback
-- [ ] Fix the player
+- [ ] Fix the player logic
 - [ ] Improve performance
 
 ## Credits

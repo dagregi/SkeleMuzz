@@ -7,29 +7,26 @@ import type {
 import type { PageLoad } from "./$types";
 
 export const load: PageLoad = ({ params, fetch }) => {
+  const { id } = params;
   const getArtist = async () => {
-    const { id } = params;
     const response = await fetch(`/api/artist/${id}`);
     const data = await response.json();
     return data as Artist;
   };
 
   const getArtistAlbums = async () => {
-    const { id } = params;
     const response = await fetch(`/api/artist/${id}/albums`);
     const data = await response.json();
     return data as AlbumResponse;
   };
 
   const getArtistTopSongs = async () => {
-    const { id } = params;
     const response = await fetch(`/api/artist/${id}/top`);
     const data = await response.json();
     return data as TrackResponse;
   };
 
   const getArtistRelated = async () => {
-    const { id } = params;
     const response = await fetch(`/api/artist/${id}/related`);
     const data = await response.json();
     return data as ArtistResponse;
