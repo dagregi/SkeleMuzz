@@ -21,7 +21,7 @@
         <Cover {item} />
       {/each}
     {:catch error}
-      <Error />
+      <Error {error} />
     {/await}
   </div>
   <h3>Popular artists</h3>
@@ -45,7 +45,7 @@
         </a>
       {/each}
     {:catch error}
-      <Error />
+      <Error {error} />
     {/await}
   </div>
 </div>

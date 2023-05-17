@@ -28,7 +28,7 @@
   <TrackList tracks={tracks?.data} />
 {:catch error}
   <!-- Promise was rejected -->
-  <Error />
+  <Error {error} />
 {/await}
 <h2 class="px-3 py-4 text-tertiary-600-300-token">Albums</h2>
 <!-- Album scrollable -->
@@ -45,7 +45,7 @@
     {/each}
   {:catch error}
     <!-- Promise was rejected -->
-    <Error />
+    <Error {error} />
   {/await}
 </div>
 <!-- end -->
@@ -69,7 +69,7 @@
     {/each}
   {:catch error}
     <!-- Promise was rejected -->
-    <Error />
+    <Error {error} />
   {/await}
 </div>
 <!-- end -->

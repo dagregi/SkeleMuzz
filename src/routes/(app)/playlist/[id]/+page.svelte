@@ -1,14 +1,11 @@
 <script lang="ts">
   import type { PageData } from "./$types";
   import { convertTime } from "$lib/utils";
-  import { isPlaying, playlistStore, trackStore } from "$lib/store";
+  import TrackList from "$lib/components/TrackList.svelte";
 
   export let data: PageData;
   const { playlist } = data;
-
-  if (!$playlistStore) {
-    $playlistStore = playlist.tracks?.data;
-  }
+  const tracks = playlist.tracks?.data;
 </script>
 
 <div
@@ -39,30 +36,4 @@
   </ul>
 </div>
 
-<div class="flex flex-col w-full">
-  <ol class="list">
-    {#each playlist.tracks?.data ?? [] as track, index}
-      <li
-        on:keypress
-        on:click={() => ($trackStore = track)}
-        class="list-option"
-      >
-        <span class="badge">
-          {#if $trackStore}
-            {#if $isPlaying}
-              <i class="fa-solid fa-pause" />
-            {:else}
-              <i class="fa-solid fa-play" />
-            {/if}
-          {:else}
-            <p>{++index}</p>
-          {/if}
-        </span>
-        <span class="flex-auto">
-          <h5 class="truncate">{track?.title}</h5>
-          <dd class="text-sm text-surface-300">{track?.artist?.name}</dd>
-        </span>
-      </li>
-    {/each}
-  </ol>
-</div>
+<TrackList {tracks} />
