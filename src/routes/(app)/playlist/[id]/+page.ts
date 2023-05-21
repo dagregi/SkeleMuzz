@@ -11,7 +11,7 @@ export const load: PageLoad = async ({ fetch, params }) => {
       const data = await response.json();
       return data as Playlist;
     } catch (err) {
-      throw error(408, { message: err.message });
+      throw error(err.status, { message: err.message });
     }
   };
 

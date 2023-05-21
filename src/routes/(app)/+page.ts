@@ -13,7 +13,7 @@ export const load: PageLoad = async ({ fetch, setHeaders }) => {
       const data = (await response.json()) as PlaylistResponse;
       return data;
     } catch (err) {
-      throw error(408, { message: err.message });
+      throw error(err.status, { message: err.message });
     }
   };
 
@@ -24,7 +24,7 @@ export const load: PageLoad = async ({ fetch, setHeaders }) => {
       const data = (await response.json()) as ArtistResponse;
       return data;
     } catch (err) {
-      throw error(408, { message: err.message });
+      throw error(err.status, { message: err.message });
     }
   };
 

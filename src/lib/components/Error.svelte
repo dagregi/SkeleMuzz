@@ -12,5 +12,5 @@
       <h2>Huh?!</h2>
     </span>
   </div>
-  <p>{error.body.message}</p>
+  <p class="mx-auto text-center">{error.body.message}</p>
 </section>

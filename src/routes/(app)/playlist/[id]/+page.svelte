@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { PageData } from "./$types";
   import { convertTime } from "$lib/utils";
-  import TrackList from "$lib/components/TrackList.svelte";
+  import { TrackList } from "$lib/components";
 
   export let data: PageData;
   const { playlist } = data;

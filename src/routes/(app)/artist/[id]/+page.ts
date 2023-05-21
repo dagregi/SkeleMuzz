@@ -16,7 +16,7 @@ export const load: PageLoad = ({ params, fetch }) => {
       const data = await response.json();
       return data as Artist;
     } catch (err) {
-      throw error(408, { message: err.message });
+      throw error(err.status, { message: err.message });
     }
   };
 
@@ -27,7 +27,7 @@ export const load: PageLoad = ({ params, fetch }) => {
       const data = await response.json();
       return data as AlbumResponse;
     } catch (err) {
-      throw error(408, { message: err.message });
+      throw error(err.status, { message: err.message });
     }
   };
 
@@ -38,7 +38,7 @@ export const load: PageLoad = ({ params, fetch }) => {
       const data = await response.json();
       return data as TrackResponse;
     } catch (err) {
-      throw error(408, { message: err.message });
+      throw error(err.status, { message: err.message });
     }
   };
 
@@ -49,7 +49,7 @@ export const load: PageLoad = ({ params, fetch }) => {
       const data = await response.json();
       return data as ArtistResponse;
     } catch (err) {
-      throw error(408, { message: err.message });
+      throw error(err.status, { message: err.message });
     }
   };
 

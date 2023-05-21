@@ -1,8 +1,7 @@
 <script lang="ts">
-  import Cover from "$lib/components/Cover.svelte";
-  import CoverLoader from "$lib/components/loaders/CoverLoader.svelte";
   import type { PageData } from "./$types";
   import Error from "$lib/components/Error.svelte";
+  import { Cover, CoverPlaceholder } from "$lib/components";
 
   export let data: PageData;
   $: ({ lazy } = data);
@@ -14,7 +13,7 @@
     class="flex px-2 overflow-x-scroll snap-x snap-mandatory scroll-smooth space-x-6 hide-scrollbar"
   >
     {#await lazy.playlists}
-      <CoverLoader />
+      <CoverPlaceholder />
     {:then playlists}
       <!-- promise was fulfilled -->
       {#each playlists?.data as item}
@@ -27,7 +26,7 @@
   <h3>Popular artists</h3>
   <div class="grid grid-cols-2 gap-2 mx-auto">
     {#await lazy.topArtists}
-      <CoverLoader />
+      <CoverPlaceholder />
     {:then topArtists}
       <!-- promise was fulfilled -->
       {#each topArtists?.data as artist}

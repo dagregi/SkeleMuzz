@@ -1,10 +1,12 @@
 <script lang="ts">
-  import ArtistProfile from "$lib/components/ArtistProfile.svelte";
-  import Cover from "$lib/components/Cover.svelte";
-  import CoverLoader from "$lib/components/loaders/CoverLoader.svelte";
-  import Error from "$lib/components/Error.svelte";
-  import Loader from "$lib/components/loaders/Loader.svelte";
-  import TrackList from "$lib/components/TrackList.svelte";
+  import {
+    ArtistProfile,
+    Cover,
+    CoverPlaceholder,
+    Error,
+    TrackList,
+    TrackPlaceholder,
+  } from "$lib/components";
   import type { PageData } from "./$types";
 
   export let data: PageData;
@@ -22,7 +24,7 @@
 <h2 class="px-3 py-4 text-tertiary-600-300-token">Top tracks</h2>
 {#await lazy.topSongs}
   <!-- Promise is pending -->
-  <Loader />
+  <TrackPlaceholder />
 {:then tracks}
   <!-- Promise was fulfilled -->
   <TrackList tracks={tracks?.data} />
@@ -37,7 +39,7 @@
 >
   {#await lazy.albums}
     <!-- Promise is pending -->
-    <CoverLoader />
+    <CoverPlaceholder />
   {:then albums}
     <!-- Promise was fulfilled -->
     {#each albums.data as item}
@@ -56,7 +58,7 @@
 >
   {#await lazy.related}
     <!-- Promise is pending -->
-    <CoverLoader />
+    <CoverPlaceholder />
   {:then related}
     <!-- Promise was fulfilled -->
     {#each related.data as artist}

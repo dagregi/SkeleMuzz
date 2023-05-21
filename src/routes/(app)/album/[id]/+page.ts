@@ -11,7 +11,7 @@ export const load: PageLoad = ({ fetch, params }) => {
       const data = await response.json();
       return data as Album;
     } catch (err) {
-      throw error(408, { message: err.message });
+      throw error(err.status, { message: err.message });
     }
   };
 

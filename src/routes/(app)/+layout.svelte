@@ -6,7 +6,7 @@
   } from "@skeletonlabs/skeleton";
   import { drawerStore } from "@skeletonlabs/skeleton";
 
-  import Navigation from "$lib/components/Navigation.svelte";
+  import { Navigation } from "$lib/components";
 
   const drawerSettings: DrawerSettings = {
     id: "sidebar",

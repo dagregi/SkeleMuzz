@@ -1,6 +1,6 @@
 <script lang="ts">
   import SearchContent from "$lib/components/SearchContent.svelte";
-  import Loader from "$lib/components/loaders/Loader.svelte";
+  import TrackPlaceholder from "$lib/components/placeholders/TrackPlaceholder.svelte";
   import type { SearchResponse } from "$lib/types";
   import { AppBar, RadioGroup, RadioItem } from "@skeletonlabs/skeleton";
 
@@ -81,7 +81,7 @@
 </AppBar>
 
 {#if searching}
-  <Loader />
+  <TrackPlaceholder />
 {:else}
   <ul class="list">
     {#each data?.data ?? [] as item}

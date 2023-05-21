@@ -5,10 +5,8 @@
   import "../app.postcss";
 
   import { Drawer, drawerStore } from "@skeletonlabs/skeleton";
-  import SideBar from "$lib/components/SideBar.svelte";
-  import Player from "$lib/components/player/Player.svelte";
-  import MiniPlayer from "$lib/components/player/MiniPlayer.svelte";
   import { trackStore } from "$lib/store";
+  import { MiniPlayer, Player, SideBar } from "$lib/components";
 
   function drawerClose(): void {
     drawerStore.close();
