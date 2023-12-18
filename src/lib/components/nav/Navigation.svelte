@@ -20,8 +20,5 @@
     <li class="my-2">
       <a href="https://github.com/dagregi"><span>Github</span></a>
     </li>
-    <li class="my-2">
-      <a href="https://t.me"><span>Telegram</span></a>
-    </li>
   </ul>
 </nav>
